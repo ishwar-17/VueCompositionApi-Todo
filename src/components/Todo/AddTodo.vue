@@ -9,7 +9,7 @@
             v-model="enteredText"
             @keyup.enter="addTodo()"
         />
-        <button class="todo-add-action" :class="enteredText.length > 0 ? 'active' : 'inactive'" @click="addTodo(true)"><b-icon-plus-circle-fill /></button>
+        <button class="todo-add-action" :class="enteredText.length > 0 ? 'active' : 'inactive'" @click="addTodo()"><b-icon-plus-circle-fill /></button>
         <p v-if="isValidInput" class="text-danger">{{ errorMessage }}</p>
     </div>
 </template>
@@ -24,7 +24,7 @@ export default {
         const isValidInput = ref(false);
         const errorMessage = ref('');
 
-        watch(enteredText, function(val){
+        watch(isValidInput, function(val){
             if(!val){
                 errorMessage.value = "Please enter the todo...";
                 isValidInput.value = true;
@@ -33,8 +33,8 @@ export default {
             isValidInput.value = false;
         })
 
-        function addTodo(enterCheck){
-            if(!enteredText.value && enterCheck){
+        function addTodo(){
+            if(!enteredText.value){
                 errorMessage.value = "Please enter the todo...";
                 isValidInput.value = true;
                 return;
