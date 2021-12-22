@@ -9,7 +9,7 @@
             v-model="enteredText"
             @keyup.enter="addTodo()"
         />
-        <button class="todo-add-action" :class="enteredText.length > 0 ? 'active' : 'inactive'" @click="addTodo()"><b-icon-plus-circle-fill /></button>
+        <button class="todo-add-action" :class="enteredText.length > 0 ? 'active' : 'inactive'" @click="addTodo(true)"><b-icon-plus-circle-fill /></button>
         <p v-if="isValidInput" class="text-danger">{{ errorMessage }}</p>
     </div>
 </template>
@@ -33,10 +33,10 @@ export default {
             isValidInput.value = false;
         })
 
-        function addTodo(){
-            if(!enteredText.value){
-                isValidInput.value = true;
+        function addTodo(enterCheck){
+            if(!enteredText.value && enterCheck){
                 errorMessage.value = "Please enter the todo...";
+                isValidInput.value = true;
                 return;
             }
             isValidInput.value = false;
